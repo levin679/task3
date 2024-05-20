@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+</head>
+<body>
+<form name="search">
+    <input type="text" name="n" placeholder="Введите n (кол-во котов)"></input>
+	<input type="text" name="b" placeholder="Введите b (кол-во корма кота)"></input>
+	<input type="text" name="m" placeholder="Введите m (вместительность миски)"></input>
+	<input type="text" name="t" placeholder="Введите t (скорость поедания корма) "></input>
+	<input type="text" name="r" placeholder="Введите r (скорость насыпания корма)"></input>
+    <input type="button" name="print" value="Запустить" />
+</form>
+<div id="printBlock"></div>
+<script>
+function printForm(e){
+     
+    // получаем значение поля key
+    let keyBox = document.search.m;
+    let m = keyBox.value;
+	    keyBox = document.search.n;
+    let n = keyBox.value;
+	    keyBox = document.search.b;
+    let b = keyBox.value;
+	    keyBox = document.search.t;
+    let t = keyBox.value;
+	    keyBox = document.search.r;
+    let r = keyBox.value;
+    // получаем элемент printBlock
+    const printBlock = document.getElementById("printBlock");
+    // создаем новый параграф
+    let pElement = document.createElement("h1");
+    // устанавливаем у него текст
+    pElement.textContent = "Новая эмуляция";
+    // добавляем параграф в printBlock
+    printBlock.appendChild(pElement);
+	let i;
+	let tim=0;
+	let k=0
+	let z;
+	while (k<=n){
+		z=m;
+		while (z>=0){
+			z=z-b;
+			if (z>=0){
+				k++;
+				if (k<=n){
+					pElement = document.createElement("p");
+					pElement.textContent = `Время с начала эмуляции ${tim}. Котик под номером ${k} подошел к миске.`;
+					printBlock.appendChild(pElement);
+					
+					tim=Number(tim)+Number(t);
+					pElement = document.createElement("p");
+					pElement.textContent = `Время с начала эмуляции ${tim}. Котик под номером ${k} отошел от миски.`;
+					printBlock.appendChild(pElement);
+				}
+			}
+		}
+		if (k<=n){
+			pElement = document.createElement("p");
+			pElement.textContent = `Миска пуста.`;
+			printBlock.appendChild(pElement);
+			pElement = document.createElement("p");
+			pElement.textContent = `Время с начала эмуляции ${tim}. Бабушка насыпает корм в миску.`;
+			printBlock.appendChild(pElement);
+			
+			tim=Number(tim)+Number(r);
+			pElement = document.createElement("p");
+			pElement.textContent = `Время с начала эмуляции ${tim}. Бабушка насыпала корм в миску.`;
+			printBlock.appendChild(pElement);
+		}
+	}
+	pElement = document.createElement("h3");
+	pElement.textContent = `Время окончания эмуляции ${tim}.`;
+	printBlock.appendChild(pElement);
+	
+	
+	
+	
+}
+ 
+const printButton = document.search.print;
+printButton.addEventListener("click", printForm);
+</script>
+</body>
+</html>
+
